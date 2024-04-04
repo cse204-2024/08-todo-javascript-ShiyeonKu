@@ -91,7 +91,9 @@
     position:relative;
     overflow-y:scroll;
 }
+
 .container .c_todo{
+    display:none;
     grid-area: 2 / 2 / 3 / 3;
     background-color:#EAEAEA;
     width:30vw;

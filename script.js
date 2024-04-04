@@ -4,12 +4,18 @@ document.getElementById("submit_todo").addEventListener("click", postTodo);
 
 
 function initialize(){
+    //erase if there's already elements
+    let parent = document.getElementById("nc_todo");
+    while(parent.firstChild){
+        parent.removeChild(parent.firstChild);
+    }
+
     let xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200){
             let todo = JSON.parse(this.responseText);
-            console.log(todo);
+            //console.log(todo);
             for (i = 0; i < todo.length; i++){
                 let new_div = document.createElement("div");
                 new_div.setAttribute("class", "todo_list");
@@ -24,7 +30,7 @@ function initialize(){
                 newtodo.addEventListener("change", getTodo);
 
                 let newtodo_label = document.createElement("label");
-                newtodo_label.setAttribute("id", todo[i].id);
+                newtodo_label.setAttribute("id", "label" + todo[i].id);
                 newtodo_label.textContent = todo[i].text;
 
                 let newtodo_button = document.createElement("button");
@@ -75,13 +81,14 @@ function postTodo(){
     xhttp2.setRequestHeader("Content-type", "application/json");
     xhttp2.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
     xhttp2.send(JSON.stringify(data));
-    initialize();
 }
 
 function getTodo(){
     let id = this.id;
     if(document.getElementById(id).checked){
-        updateStatus(id);
+        updateCheckedStatus(id);
+    }else{
+        updateUnchecked(id);
     }
 
     let xhttp2 = new XMLHttpRequest();
@@ -102,7 +109,7 @@ function getTodo(){
     //xhttp2.setRequestHeader(JSON.stringify(data));
 }
 
-function updateStatus(id){
+function updateCheckedStatus(id){
     let content_id = id;
 
     let xhttp2 = new XMLHttpRequest();
@@ -112,6 +119,8 @@ function updateStatus(id){
             let todo = JSON.parse(this.responseText);
             todo.completed = true;
             console.log(todo);
+            document.getElementById("label"+todo.id).style.fontStyle = "italic";
+            document.getElementById("label"+todo.id).style.fontWeight = "600";
 
             //take completed from the uc list and tun to the c list
         }else if (this.readyState == 4){
@@ -123,7 +132,30 @@ function updateStatus(id){
     xhttp2.setRequestHeader("Content-type", "application/json");
     xhttp2.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
     xhttp2.send();
-    initialize();
+}
+function updateUnchecked(id){
+    let content_id = id;
+
+    let xhttp2 = new XMLHttpRequest();
+
+    xhttp2.onreadystatechange = function(){
+        if (this.readyState == 4 && this.status == 200){
+            let todo = JSON.parse(this.responseText);
+            todo.completed = true;
+            console.log(todo);
+            document.getElementById("label"+todo.id).style.fontStyle = "normal";
+            document.getElementById("label"+todo.id).style.fontWeight = "200";
+
+            //take completed from the uc list and tun to the c list
+        }else if (this.readyState == 4){
+            console.log(this.responseText);
+        }
+    };
+    xhttp2.open("PUT", "https://cse204.work/todos/"+ content_id, true);
+
+    xhttp2.setRequestHeader("Content-type", "application/json");
+    xhttp2.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
+    xhttp2.send();
 }
 
 function deleteTodo(){
@@ -133,8 +165,8 @@ function deleteTodo(){
 
     xhttp2.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
-            let todo = JSON.parse(this.responseText);
-            console.log(todo);
+            //let todo = JSON.parse(this.responseText);
+            //console.log(todo);
         }else if (this.readyState == 4){
             console.log(this.responseText);
         }
@@ -144,4 +176,5 @@ function deleteTodo(){
     xhttp2.setRequestHeader("Content-type", "application/json");
     xhttp2.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
     xhttp2.send();
+    initialize();
 }
