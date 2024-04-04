@@ -1,25 +1,17 @@
-//grab todo list from the api
-let xhttp = new XMLHttpRequest();
 
-xhttp.onreadystatechange = function(){
-    if (this.readyState == 4 && this.status == 200){
-        let todos = JSON.parse(this.responseText);
-        initialize();
-        document.getElementById("submit_todo").addEventListener("click", postTodo);
-    }
-};
-
-xhttp.open("GET", "https://cse204.work/todos", true);
-xhttp.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
-xhttp.send();
-
+initialize();
+document.getElementById("submit_todo").addEventListener("click", postTodo);
 
 
 function initialize(){
     //erase if there's already elements
     let parent = document.getElementById("nc_todo");
+    let parent2 = document.getElementById("c_todo");
     while(parent.firstChild){
         parent.removeChild(parent.firstChild);
+    }
+    while(parent2.firstChild){
+        parent2.removeChild(parent2.firstChild);
     }
 
     let xhttp2 = new XMLHttpRequest();
@@ -58,6 +50,9 @@ function initialize(){
                 new_div.appendChild(label_div);
                 new_div.appendChild(newtodo_button);
                 if(todo[i].completed){
+                    newtodo.setAttribute("checked", "true");
+                    newtodo_label.style.fontStyle = "italic";
+                    newtodo_label.style.fontWeight = "600";
                     document.getElementById("c_todo").appendChild(new_div);
                 }else{
                     document.getElementById("nc_todo").appendChild(new_div);
@@ -127,6 +122,9 @@ function getTodo(){
 }
 
 function updateCheckedStatus(id){
+    let data = {
+        completed: document.getElementById(id).checked
+    };
 
     let xhttp2 = new XMLHttpRequest();
 
@@ -135,8 +133,6 @@ function updateCheckedStatus(id){
             let todo = JSON.parse(this.responseText);
             todo.completed = true;
             console.log(todo);
-            document.getElementById("label"+todo.id).style.fontStyle = "italic";
-            document.getElementById("label"+todo.id).style.fontWeight = "600";
 
             //take completed from the uc list and tun to the c list
         }else if (this.readyState == 4){
@@ -147,9 +143,13 @@ function updateCheckedStatus(id){
 
     xhttp2.setRequestHeader("Content-type", "application/json");
     xhttp2.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
-    xhttp2.send();
+    xhttp2.send(JSON.stringify(data));
+    initialize();
 }
 function updateUnchecked(id){
+    let data = {
+        completed: document.getElementById(id).checked
+    };
 
     let xhttp2 = new XMLHttpRequest();
 
@@ -158,8 +158,6 @@ function updateUnchecked(id){
             let todo = JSON.parse(this.responseText);
             todo.completed = false;
             console.log(todo);
-            document.getElementById("label"+todo.id).style.fontStyle = "normal";
-            document.getElementById("label"+todo.id).style.fontWeight = "200";
 
             //take completed from the uc list and tun to the c list
         }else if (this.readyState == 4){
@@ -170,7 +168,8 @@ function updateUnchecked(id){
 
     xhttp2.setRequestHeader("Content-type", "application/json");
     xhttp2.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
-    xhttp2.send();
+    xhttp2.send(JSON.stringify(data));
+    initialize();
 }
 
 function deleteTodo(){

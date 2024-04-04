@@ -16,6 +16,7 @@
     padding:1vw;
     align-items:center;
     justify-content: flex-start;
+    background-color:#EAEAEA;
 }
 .header img{
     padding:1vw;
@@ -83,7 +84,7 @@
 }
 .container .nc_todo{
     grid-area: 2 / 1 / 3 / 2;
-    width:50vw;
+    width:30vw;
     height:40vh;
     padding:2em;
     border-style:solid;
@@ -95,7 +96,6 @@
 }
 
 .container .c_todo{
-    display:none;
     grid-area: 2 / 2 / 3 / 3;
     background-color:#EAEAEA;
     width:30vw;
@@ -111,7 +111,15 @@
     justify-content: space-between;
     padding:0.5em;
 }
+.container .c_todo .todo_list{
+    display:flex;
+    justify-content: space-between;
+    padding:0.5em;
+}
 .container .nc_todo .todo_list .check{
+    margin-right: 1em;
+}
+.container .c_todo .todo_list .check{
     margin-right: 1em;
 }
 .container .delete_btn{
