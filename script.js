@@ -74,7 +74,6 @@ function postTodo(){
     let data={
         text: document.getElementById("add_todo").value
     };
-    console.log(JSON.stringify(data));
 
     let xhttp2 = new XMLHttpRequest();
 
