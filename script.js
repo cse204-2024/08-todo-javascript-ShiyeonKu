@@ -32,14 +32,18 @@ function initialize(){
                 newtodo_button.setAttribute("class", "delete_btn");
                 newtodo_button.setAttribute("id", todo[i].id);
                 newtodo_button.textContent = "Delete";
-                //newtodo_button.addEventListener("click", getTodo);
+                newtodo_button.addEventListener("click", deleteTodo);
 
+                
                 label_div.appendChild(newtodo);
                 label_div.appendChild(newtodo_label);
                 new_div.appendChild(label_div);
                 new_div.appendChild(newtodo_button);
-                document.getElementById("nc_todo").appendChild(new_div);
-
+                if(todo[i].completed){
+                    document.getElementById("c_todo").appendChild(new_div);
+                }else{
+                    document.getElementById("nc_todo").appendChild(new_div);
+                }
             }
         }
     };
@@ -75,8 +79,6 @@ function postTodo(){
 }
 
 function getTodo(){
-    //prints out id of the selected list
-
     let id = this.id;
     if(document.getElementById(id).checked){
         updateStatus(id);
@@ -87,6 +89,7 @@ function getTodo(){
     xhttp2.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
             let todo = JSON.parse(this.responseText);
+            console.log(todo);
         }else if (this.readyState == 4){
             console.log(this.responseText);
         }
@@ -107,12 +110,10 @@ function updateStatus(id){
     xhttp2.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200){
             let todo = JSON.parse(this.responseText);
+            todo.completed = true;
             console.log(todo);
-            for(i=0; i < todo.length; i++){
-                if (todo[i].id == content_id){
-                    todo[i].completed = true;
-                }
-            }
+
+            //take completed from the uc list and tun to the c list
         }else if (this.readyState == 4){
             console.log(this.responseText);
         }
@@ -121,5 +122,26 @@ function updateStatus(id){
 
     xhttp2.setRequestHeader("Content-type", "application/json");
     xhttp2.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
+    xhttp2.send();
+    initialize();
+}
 
+function deleteTodo(){
+    let id = this.id;
+    
+    let xhttp2 = new XMLHttpRequest();
+
+    xhttp2.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            let todo = JSON.parse(this.responseText);
+            console.log(todo);
+        }else if (this.readyState == 4){
+            console.log(this.responseText);
+        }
+    };
+    xhttp2.open("DELETE", "https://cse204.work/todos/"+ id, true);
+
+    xhttp2.setRequestHeader("Content-type", "application/json");
+    xhttp2.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
+    xhttp2.send();
 }
