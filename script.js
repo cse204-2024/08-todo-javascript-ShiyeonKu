@@ -1,6 +1,5 @@
 
 initialize();
-document.getElementById("submit_todo").addEventListener("click", postTodo);
 
 function initialize(){
 
@@ -12,7 +11,8 @@ function initialize(){
     }
     while(parent2.firstChild){
         parent2.removeChild(parent2.firstChild);
-    }              
+    }
+    document.getElementById("submit_todo").addEventListener("click", postTodo);              
          
     let xhttp2 = new XMLHttpRequest();
 
@@ -74,6 +74,7 @@ function postTodo(){
     let data={
         text: document.getElementById("add_todo").value
     };
+    console.log(document.getElementById("add_todo").value);
 
     let xhttp2 = new XMLHttpRequest();
 

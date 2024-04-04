@@ -1,5 +1,5 @@
 # Starter HTML, CSS and Javascript
 
-This repository provides blank files for HTML, CSS, and Javascript.
+Shiyeon Monk
 
-Before submitting, replace the text in this README file with your name and a brief description of your work (just a sentence or two will do).
+This is my TODO app. You may need to submit the todo list several times but every other function; delete/ complete/ state change works with one click.
