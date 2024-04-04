@@ -1,5 +1,5 @@
 //grab todo list from the api
-initialize();
+document.getElementById("submit_todo").addEventListener("click", postTodo);
 
 function initialize(){
     let xhttp = new XMLHttpRequest();
@@ -16,10 +16,8 @@ function initialize(){
     xhttp.send();
 }
 
-document.getElementById("submit_todo").addEventListener("click", postTodo());
 
 //set variable from the form as a new todo and add to the list
-
 function postTodo(){
     console.log(document.getElementById("add_todo").value);
 }
