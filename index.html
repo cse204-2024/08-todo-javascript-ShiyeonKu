@@ -3,39 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;1,200&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>To Do List</title>
 </head>
 <body>
-    <div class="container">
-        <!--Have two different containers for to-dos that needs to be done and to-dos that are completed-->
-        <div class="todo">
-            <div class="todo_item" id="todo_item">
-                <section>
-                    <input type="checkbox" name="nd">
-                    <label>One</label>
-                </section>
+    <!--all inclusive container-->
+    <div class="body">
+        <!--header-->
+        <div class="header">
+            <img class="logo" src="Logo.png" alt="logo image">
+        </div>
 
-                <section>
-                    <input type="checkbox" name="nd">
-                    <label>One</label>
-                </section>
+        <!--Input box for new todo-->
+        <div class="input" id="new_todo">
+            <form>
+                <input class="textbox" id="add_todo" type="text" placeholder="Add a new task">
+                <button id="submit_todo" type="submit">Add</button>
+            </form>
+        </div>
 
-                <section>
-                    <input type="checkbox" name="nd">
-                    <label>One</label>
-                </section>
+        <!--Container for both not done todos and done todos-->
+        <div class="container">
+
+            <!--container for todos that are NOT done-->
+            <p>Up Next</p>
+            <div class="nc_todo">
+            </div>
+
+            <!--container for todos that are done-->
+            <p>Completed</p>
+            <div class="c_todo">
             </div>
 
         </div>
-
-        <!--Finished to-dos are inside a collapsible-->
-        <div class="todo_com">
-            <button type="button" class="collapsible">Completed</button>
-            <div class="col_content">
-            </div>
-        </div>
-
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

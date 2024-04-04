@@ -1,76 +1,101 @@
-body{
-    background-color:rgb(226, 226, 226);
+.body{
+    display:grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: 70px auto;
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
 }
-.todo{
-    width:50%;
+
+.header{
+    display:flex;
+    grid-area: 1 / 1 / 2 / 3;
+    width:100%;
+    height:100%;
+    padding:1vw;
+    align-items:center;
+    justify-content: flex-start;
+}
+.header img{
+    padding:1vw;
+    height:3em;
+}
+
+.input{
+    grid-area: 2 / 1 / 3 / 3;
+    display:flex;
+    width:100%;
     height:auto;
-    margin-left:5vw;
-    margin-right:5vw;
-    margin-top:5vh;
-    margin-bottom:5vh;
-    background-color:rgb(255,255,255);
-    box-shadow: 3px 3px 3px rgba(0,0,0,0.2);
-}
-.todo_item{
-    margin:3vw;
-    padding-left:2vw;
-    padding-right:2vw;
-    padding-top:3vh;
-    padding-bottom:3vh;
-}
-section{
-    margin:1vw;
-}
-
-[type="checkbox"]{
-    /*checkbox is still there, just not viewable*/
-    display:hidden;
-    position:absolute;
-    left:12vw;
-    z-index:1;
-    opacity:0;
-}
-
-[type="checkbox"] + label{
+    margin-top:5em;
+    padding:2em;
+    justify-content: center;
     position:relative;
-    padding-left: 30px;
-    cursor:pointer;
-    display: inline-block;
-    color:black;
-    line-height: 25px;
 }
 
-[type="checkbox"] + label::before{
-    content: "";
-    position:absolute;
-    left:0;
-    top:0;
-    width:20px;
-    height:20px;
-    border-radius:5px;
-    outline: 2px solid #000000;
-    background: #ffffff;
+.input input[type=text]{
+    width:50vw;
+    padding:1em;
+    padding-left:2.5em;
+    padding-bottom:1em;
+    background-image:url("Add.png");
+    background-repeat: no-repeat;
+    background-size:2em;
+    background-origin: border-box;
+    box-sizing:border-box;
+    border:none;
+    border-bottom: 2px solid;
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    font-size:16px;
 }
 
-[type="checkbox"]:checked + label::before{
-    content: "";
-    position:absolute;
-    left:0;
-    top:0;
-    width:20px;
-    height:20px;
-    border-radius:0px;
-    outline: 2px solid #000000;
-    background: #000000;
+.input button{
+    margin-left:2em;
+    width: 7em;
+    height: 3em;
+    border-radius:30px;
+    background-color: #000000;
+    color:#ffffff;
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size:16px;
+}
+.input button:hover{
+    background-color:#ffffff;
+    color:#000000;
+    border-width: 2px;
+    border-color:#000000;
 }
 
-[type="checkbox"]:checked + label::after{
-    content: "";
-    position:absolute;
-    left:0;
-    top:0;
-    width:20px;
-    height:20px;
-    background-image:url(checkmark.png);
-    background-size:contain;
+.container{
+    grid-area: 2 / 1 / 3 / 3;
+    display:grid;
+    margin-top:15em;
+    justify-content: space-evenly;
+    position:relative;
+}
+.container .nc_todo{
+    grid-area: 2 / 1 / 3 / 2;
+    width:30vw;
+    height:40vh;
+    padding:2em;
+    border-style:solid;
+    border-width: 2px;
+    border-color:#000000;
+    border-radius:30px;
+    position:relative;
+}
+.container .c_todo{
+    grid-area: 2 / 2 / 3 / 3;
+    background-color:#EAEAEA;
+    width:30vw;
+    height:40vh;
+    padding:2em;
+    border-radius:30px;
+    position:relative;
 }
