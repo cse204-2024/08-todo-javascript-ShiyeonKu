@@ -2,8 +2,8 @@
 initialize();
 document.getElementById("submit_todo").addEventListener("click", postTodo);
 
-
 function initialize(){
+
     //erase if there's already elements
     let parent = document.getElementById("nc_todo");
     let parent2 = document.getElementById("c_todo");
@@ -12,14 +12,15 @@ function initialize(){
     }
     while(parent2.firstChild){
         parent2.removeChild(parent2.firstChild);
-    }
-
+    }              
+         
     let xhttp2 = new XMLHttpRequest();
 
     xhttp2.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200){
             let todo = JSON.parse(this.responseText);
             console.log(todo);
+
             for (i = 0; i < todo.length; i++){
                 let new_div = document.createElement("div");
                 new_div.setAttribute("class", "todo_list");
@@ -81,6 +82,7 @@ function postTodo(){
         if (this.readyState == 4 && this.status == 200){
             let todo = JSON.parse(this.responseText);
             console.log(todo);
+            initialize();
         }else if(this.readyState == 4){
             console.log(this.responseText);
         }
@@ -90,7 +92,6 @@ function postTodo(){
     xhttp2.setRequestHeader("Content-type", "application/json");
     xhttp2.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
     xhttp2.send(JSON.stringify(data));
-    initialize();
 }
 
 function getTodo(){
@@ -102,10 +103,10 @@ function getTodo(){
         if(this.readyState == 4 && this.status == 200){
             //let todo = JSON.parse(this.responseText);
             if(document.getElementById(id).checked == true){
-                console.log(document.getElementById(id).checked);
+                //console.log(document.getElementById(id).checked);
                 updateCheckedStatus(id);
             }else if (document.getElementById(id).checked == false){
-                console.log("it's running false function");
+                //console.log(document.getElementById(id).checked);
                 updateUnchecked(id);
             }
         }else if (this.readyState == 4){
@@ -132,7 +133,7 @@ function updateCheckedStatus(id){
             let todo = JSON.parse(this.responseText);
             todo.completed = true;
             console.log(todo);
-
+            initialize();
             //take completed from the uc list and tun to the c list
         }else if (this.readyState == 4){
             console.log(this.responseText);
@@ -143,7 +144,6 @@ function updateCheckedStatus(id){
     xhttp2.setRequestHeader("Content-type", "application/json");
     xhttp2.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
     xhttp2.send(JSON.stringify(data));
-    initialize();
 }
 function updateUnchecked(id){
     let data = {
@@ -157,7 +157,7 @@ function updateUnchecked(id){
             let todo = JSON.parse(this.responseText);
             todo.completed = false;
             console.log(todo);
-
+            initialize();
             //take completed from the uc list and tun to the c list
         }else if (this.readyState == 4){
             console.log(this.responseText);
@@ -168,7 +168,6 @@ function updateUnchecked(id){
     xhttp2.setRequestHeader("Content-type", "application/json");
     xhttp2.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
     xhttp2.send(JSON.stringify(data));
-    initialize();
 }
 
 function deleteTodo(){
@@ -180,6 +179,7 @@ function deleteTodo(){
         if(this.readyState == 4 && this.status == 200){
             //let todo = JSON.parse(this.responseText);
             //console.log(todo);
+            initialize();
         }else if (this.readyState == 4){
             console.log(this.responseText);
         }
@@ -189,5 +189,4 @@ function deleteTodo(){
     xhttp2.setRequestHeader("Content-type", "application/json");
     xhttp2.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
     xhttp2.send();
-    initialize();
 }
