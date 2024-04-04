@@ -42,6 +42,8 @@
     background-repeat: no-repeat;
     background-size:2em;
     background-origin: border-box;
+    background-position-x:3px;
+    background-position-y:8px;
     box-sizing:border-box;
     border:none;
     border-bottom: 2px solid;
