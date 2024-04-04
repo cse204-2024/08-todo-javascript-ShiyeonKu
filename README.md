@@ -2,4 +2,4 @@
 
 Shiyeon Monk
 
-This is my TODO app. You may need to submit the todo list several times but every other function; delete/ complete/ state change works with one click.
+All elements should be working with single touch. The three colors I used on this project is (#000000, #ffffff, #EAEAEA). 

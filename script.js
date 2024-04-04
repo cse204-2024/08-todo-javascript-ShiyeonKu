@@ -70,7 +70,8 @@ function initialize(){
 }
 
 //set variable from the form as a new todo and add to the list
-function postTodo(){
+function postTodo(e){
+    e.preventDefault();
     let data={
         text: document.getElementById("add_todo").value
     };
@@ -82,6 +83,7 @@ function postTodo(){
         if (this.readyState == 4 && this.status == 200){
             let todo = JSON.parse(this.responseText);
             console.log(todo);
+            document.getElementById("add_todo").value = "";
             initialize();
         }else if(this.readyState == 4){
             console.log(this.responseText);
