@@ -1,6 +1,18 @@
 //grab todo list from the api
-initialize();
-document.getElementById("submit_todo").addEventListener("click", postTodo);
+let xhttp = new XMLHttpRequest();
+
+xhttp.onreadystatechange = function(){
+    if (this.readyState == 4 && this.status == 200){
+        let todos = JSON.parse(this.responseText);
+        initialize();
+        document.getElementById("submit_todo").addEventListener("click", postTodo);
+    }
+};
+
+xhttp.open("GET", "https://cse204.work/todos", true);
+xhttp.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
+xhttp.send();
+
 
 
 function initialize(){
@@ -10,9 +22,9 @@ function initialize(){
         parent.removeChild(parent.firstChild);
     }
 
-    let xhttp = new XMLHttpRequest();
+    let xhttp2 = new XMLHttpRequest();
 
-    xhttp.onreadystatechange = function(){
+    xhttp2.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200){
             let todo = JSON.parse(this.responseText);
             console.log(todo);
@@ -51,12 +63,14 @@ function initialize(){
                     document.getElementById("nc_todo").appendChild(new_div);
                 }
             }
+        }else if(this.readyState == 4){
+            console.log(this.responseText);
         }
     };
 
-    xhttp.open("GET", "https://cse204.work/todos", true);
-    xhttp.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
-    xhttp.send();
+    xhttp2.open("GET", "https://cse204.work/todos", true);
+    xhttp2.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
+    xhttp2.send();
 }
 
 //set variable from the form as a new todo and add to the list
@@ -86,18 +100,20 @@ function postTodo(){
 
 function getTodo(){
     let id = this.id;
-    if(document.getElementById(id).checked){
-        updateCheckedStatus(id);
-    }else{
-        updateUnchecked(id);
-    }
+
 
     let xhttp2 = new XMLHttpRequest();
 
     xhttp2.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
             let todo = JSON.parse(this.responseText);
-            console.log(todo);
+            if(document.getElementById(id).checked == true){
+                console.log(document.getElementById(id).checked);
+                updateCheckedStatus(id);
+            }else if (document.getElementById(id).checked == false){
+                console.log("it's running false function");
+                updateUnchecked(id);
+            }
         }else if (this.readyState == 4){
             console.log(this.responseText);
         }
@@ -107,11 +123,10 @@ function getTodo(){
 
     xhttp2.setRequestHeader("Content-type", "application/json");
     xhttp2.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
-    //xhttp2.setRequestHeader(JSON.stringify(data));
+    xhttp2.send();
 }
 
 function updateCheckedStatus(id){
-    let content_id = id;
 
     let xhttp2 = new XMLHttpRequest();
 
@@ -128,21 +143,20 @@ function updateCheckedStatus(id){
             console.log(this.responseText);
         }
     };
-    xhttp2.open("PUT", "https://cse204.work/todos/"+ content_id, true);
+    xhttp2.open("PUT", "https://cse204.work/todos/"+id, true);
 
     xhttp2.setRequestHeader("Content-type", "application/json");
     xhttp2.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
     xhttp2.send();
 }
 function updateUnchecked(id){
-    let content_id = id;
 
     let xhttp2 = new XMLHttpRequest();
 
     xhttp2.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200){
             let todo = JSON.parse(this.responseText);
-            todo.completed = true;
+            todo.completed = false;
             console.log(todo);
             document.getElementById("label"+todo.id).style.fontStyle = "normal";
             document.getElementById("label"+todo.id).style.fontWeight = "200";
@@ -152,7 +166,7 @@ function updateUnchecked(id){
             console.log(this.responseText);
         }
     };
-    xhttp2.open("PUT", "https://cse204.work/todos/"+ content_id, true);
+    xhttp2.open("PUT", "https://cse204.work/todos/"+id, true);
 
     xhttp2.setRequestHeader("Content-type", "application/json");
     xhttp2.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
@@ -165,10 +179,10 @@ function deleteTodo(){
     let xhttp2 = new XMLHttpRequest();
 
     xhttp2.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-            //let todo = JSON.parse(this.responseText);
-            //console.log(todo);
-        }else if (this.readyState == 4){
+        if(this.readyState == 4 && this.status == 202){
+            let todo = JSON.parse(this.responseText);
+            console.log(todo);
+        }else if (this.staus == 204){
             console.log(this.responseText);
         }
     };
