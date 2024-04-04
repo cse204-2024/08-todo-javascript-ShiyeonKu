@@ -15,7 +15,7 @@ function initialize(){
     xhttp.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200){
             let todo = JSON.parse(this.responseText);
-            //console.log(todo);
+            console.log(todo);
             for (i = 0; i < todo.length; i++){
                 let new_div = document.createElement("div");
                 new_div.setAttribute("class", "todo_list");
@@ -81,6 +81,7 @@ function postTodo(){
     xhttp2.setRequestHeader("Content-type", "application/json");
     xhttp2.setRequestHeader("x-api-key", "d4681d-747376-1752ce-4282a1-053f50");
     xhttp2.send(JSON.stringify(data));
+    initialize();
 }
 
 function getTodo(){
