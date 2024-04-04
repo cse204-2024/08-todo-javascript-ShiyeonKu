@@ -96,12 +96,11 @@ function postTodo(){
 function getTodo(){
     let id = this.id;
 
-
     let xhttp2 = new XMLHttpRequest();
 
     xhttp2.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
-            let todo = JSON.parse(this.responseText);
+            //let todo = JSON.parse(this.responseText);
             if(document.getElementById(id).checked == true){
                 console.log(document.getElementById(id).checked);
                 updateCheckedStatus(id);
@@ -178,10 +177,10 @@ function deleteTodo(){
     let xhttp2 = new XMLHttpRequest();
 
     xhttp2.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 202){
-            let todo = JSON.parse(this.responseText);
-            console.log(todo);
-        }else if (this.staus == 204){
+        if(this.readyState == 4 && this.status == 200){
+            //let todo = JSON.parse(this.responseText);
+            //console.log(todo);
+        }else if (this.readyState == 4){
             console.log(this.responseText);
         }
     };
