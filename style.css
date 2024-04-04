@@ -89,6 +89,7 @@
     border-color:#000000;
     border-radius:30px;
     position:relative;
+    overflow-y:scroll;
 }
 .container .c_todo{
     grid-area: 2 / 2 / 3 / 3;
@@ -98,4 +99,20 @@
     padding:2em;
     border-radius:30px;
     position:relative;
+    overflow-y:scroll;
+}
+
+.container .nc_todo .todo_list{
+    display:flex;
+    justify-content: space-between;
+    padding:0.5em;
+}
+.container .nc_todo .todo_list .check{
+    margin-right: 1em;
+}
+.container .delete_btn{
+    margin-left:5em;
+    border-radius:30px;
+    background-color: #000000;
+    color:#ffffff;
 }
